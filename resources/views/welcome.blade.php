@@ -1,0 +1,30 @@
+@extends('adminlte::page')
+
+@section('title', 'Dashboard')
+
+@section('content_header')
+    <h1>Dashboard</h1>
+@stop
+
+@section('content')
+    <p>Welcome to this beautiful admin panel.</p> @version('compact')
+@stop
+@section('footer')
+   <div class="float-right d-none d-sm-block">
+        <b>Version</b> @version('compact')       
+    </div>
+@stop
+
+@section('css')
+    
+@stop
+
+@section('js')
+    <script> console.log('Hi!'); </script>
+@stop
+
+@section('footer')
+   <div class="float-right d-none d-sm-block">
+        <b>Version</b> @version('compact')       
+    </div>
+@stop
