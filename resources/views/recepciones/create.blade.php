@@ -40,7 +40,7 @@
                                 <select id="articulo" autofocus name="articulo" required class="form-control select2">
                                     <option value="">Buscar articulo</option>
                                     <?php
-
+                                    
                                     foreach ($articulos as $t) {
                                         echo '<option value="' .
                                             $t['id'] .
@@ -93,7 +93,7 @@
                         $total_costo_neto = 0;
                         $total_costo_imp = 0;
                         $total_costo_total = 0;
-
+                        
                         foreach (session('recepcion') as $r) {
                             $total_unidades += $r->cantidad;
                             $total_costo_neto += $r->precio_unitario * $r->cantidad;
@@ -144,25 +144,25 @@
                                                 @endforeach
                                             </select>
                                         </div>
+
+                                                        
+                        <div class="form-group">
+                            <label>Región</label>
+                            <select id="region_id" name="region_id" class="form-control select2" required>
+                                <option value="">Seleccione una Región</option>
+                                @foreach ($regiones as $region)
+                                    <option value="{{ $region->id }}">{{ $region->region }}</option>
+                                @endforeach
+                            </select>
+                            @error('region_id')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+               
                                         <div class="form-group">
                                             <label>Observaciones</label>
                                             <input id="observaciones" required name="observaciones" type="text"
                                                 class="form-control input-sm" value="">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Ubicación del Almacén</label>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="warehouse_location" id="warehouse_bolivia" value="Bolivia" required>
-                                                <label class="form-check-label" for="warehouse_bolivia">
-                                                    Almacén en Bolivia
-                                                </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="warehouse_location" id="warehouse_chile" value="Chile" required>
-                                                <label class="form-check-label" for="warehouse_chile">
-                                                    Almacén en Chile
-                                                </label>
-                                            </div>
                                         </div>
                                         <div class="form-group">
                                             <label>Monto total</label>
@@ -219,9 +219,14 @@
 
     <br>
 
+    <!-- Fin contenido -->
+
+
+    <!-- /.card-body -->
     <div class="card-footer">
         Crear articulo
     </div>
+    <!-- /.card-footer-->
     </div>
     @if (session('recepcion'))
         <div class="card">

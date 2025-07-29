@@ -20,10 +20,10 @@ class RegionSeeder extends Seeder
 
         $json = '[{
                 "id": "1",
-                "region": "Arica y Parinacota"
+                "region": "Bolivia"
             }, {
                 "id": "2",
-                "region": "Tarapaca"
+                "region": "Chile"
             }, {
                 "id": "3",
                 "region": "Antofagasta"

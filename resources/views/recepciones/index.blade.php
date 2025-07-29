@@ -27,6 +27,7 @@
                             <td>Monto</td>
                             <td>Usuario</td>
                             <td>Fecha</td>
+                            <td>Región</td>
                             <td>Ver</td>
                         </tr>
                     </thead>
@@ -48,6 +49,7 @@
                                 </td>
                                 <td>{{ $u->user->name }}</td>
                                 <td>{{ $u->fecha_recepcion }}</td>
+                                 <td>{{ $u->region->region ?? 'N/A' }}</td> 
                                 <td>
                                     <div class="btn-group">
                                         <a type="button" class="btn btn-success"

@@ -9,18 +9,7 @@ class Recepciones extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'proveedor_id',
-        'documento',
-        'tipo_documentos_id',
-        'total_neto',
-        'total_iva',
-        'unidades',
-        'observaciones',
-        'fecha_recepcion',
-        'user_id',
-        'warehouse_location',
-    ];
+    protected $fillable = [];
     public function
     documentos()
     {
@@ -42,5 +31,10 @@ class Recepciones extends Model
     public function User()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+        public function region()
+    {
+        return $this->belongsTo(Region::class, 'region_id', 'id');
     }
 }

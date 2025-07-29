@@ -27,6 +27,7 @@
                         ({{ $recepcion->Proveedor->rut }})</li>
                     <li><strong>Fecha recepcion:</strong> {{ date('d-m-Y', strtotime($recepcion->fecha_recepcion)) }}</li>
                     <li><strong> {{ $recepcion->documentos->tipo_documento }}:</strong> {{ $recepcion->documento }}</li>
+                    <li><strong>Región:</strong> {{ $recepcion->region->region ?? 'N/A' }}</li> {{-- ¡Nueva línea para la Región! --}}
                     <li><strong>Monto total:</strong>
                         ${{ number_format($recepcion->total_neto + $recepcion->total_iva, 0, ',', '.') }}</li>
                     <li><strong>Unidades:</strong> {{ number_format($recepcion->unidades, 0, ',', '.') }}</li>
