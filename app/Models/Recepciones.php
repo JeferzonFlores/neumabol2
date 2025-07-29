@@ -9,7 +9,18 @@ class Recepciones extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    protected $fillable = [
+        'proveedor_id',
+        'documento',
+        'tipo_documentos_id',
+        'total_neto',
+        'total_iva',
+        'unidades',
+        'observaciones',
+        'fecha_recepcion',
+        'user_id',
+        'warehouse_location',
+    ];
     public function
     documentos()
     {

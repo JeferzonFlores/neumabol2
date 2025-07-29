@@ -24,6 +24,8 @@ class CreateRecepcionesTable extends Migration
             $table->string('observaciones');
             $table->date('fecha_recepcion');
             $table->foreignId('user_id')->constrained();
+          // Add the new column for warehouse location
+            $table->string('warehouse_location')->nullable(); // You can make it not nullable if a warehouse must always be selected
         });
     }
 

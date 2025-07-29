@@ -40,7 +40,7 @@
                                 <select id="articulo" autofocus name="articulo" required class="form-control select2">
                                     <option value="">Buscar articulo</option>
                                     <?php
-                                    
+
                                     foreach ($articulos as $t) {
                                         echo '<option value="' .
                                             $t['id'] .
@@ -93,7 +93,7 @@
                         $total_costo_neto = 0;
                         $total_costo_imp = 0;
                         $total_costo_total = 0;
-                        
+
                         foreach (session('recepcion') as $r) {
                             $total_unidades += $r->cantidad;
                             $total_costo_neto += $r->precio_unitario * $r->cantidad;
@@ -150,6 +150,21 @@
                                                 class="form-control input-sm" value="">
                                         </div>
                                         <div class="form-group">
+                                            <label>Ubicación del Almacén</label>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="warehouse_location" id="warehouse_bolivia" value="Bolivia" required>
+                                                <label class="form-check-label" for="warehouse_bolivia">
+                                                    Almacén en Bolivia
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="warehouse_location" id="warehouse_chile" value="Chile" required>
+                                                <label class="form-check-label" for="warehouse_chile">
+                                                    Almacén en Chile
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
                                             <label>Monto total</label>
                                             <input id="monto_total" name="monto_total" disabled type="text"
                                                 class="form-control input-sm"
@@ -204,14 +219,9 @@
 
     <br>
 
-    <!-- Fin contenido -->
-
-
-    <!-- /.card-body -->
     <div class="card-footer">
         Crear articulo
     </div>
-    <!-- /.card-footer-->
     </div>
     @if (session('recepcion'))
         <div class="card">
