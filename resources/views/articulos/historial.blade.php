@@ -31,36 +31,35 @@
         </div>
         <div class="card-body">
             <div class="row">
-                <div class="col-4">
-                    {{-- <p>{{ $articulo }}</p> --}}
+                <div class="col-6"> {{-- Ajustado a col-6 para ocupar más espacio si hay menos columnas --}}
                     <p><strong>ID articulo:</strong> {{ $articulo->id }}</p>
                     <p><strong>Codigo interno:</strong> {{ $articulo->cod_interno }}</p>
                     <p><strong>Codigo de barras:</strong> {{ $articulo->cod_barras }}</p>
                     <p><strong>Descripcion:</strong> {{ $articulo->descripcion }}</p>
-                    <p><strong>Stock:</strong> {{ $articulo->stock }}</p>
-                    <p><strong>Stock critico:</strong> {{ $articulo->stock_critico }}</p>
-
                 </div>
-                <div class="col-4">
-                    <p><strong>Costo neto:</strong>$ {{ number_format($articulo->costo_neto, 0, '', '.') }}</p>
-                    <p><strong>I.V.A.:</strong>$ {{ number_format($articulo->costo_imp, 0, '', '.') }}</p>
-                    <p><strong>Costo total:</strong>$
-                        {{ number_format($articulo->costo_neto + $articulo->costo_imp, 0, '', '.') }}</p>
-                    <p><strong>Costo total stock:</strong>$
+                <div class="col-6"> {{-- Ajustado a col-6 --}}
+                    <p><strong>Marca:</strong> {{ $articulo->marca ?? 'N/A' }}</p> {{-- Nuevo campo --}}
+                    <p><strong>Modelo:</strong> {{ $articulo->modelo ?? 'N/A' }}</p> {{-- Nuevo campo --}}
+                    {{-- Campos eliminados: Stock, Stock critico, Costo, Venta, Margen --}}
+                    {{-- <p><strong>Stock:</strong> {{ $articulo->stock }}</p> --}}
+                    {{-- <p><strong>Stock critico:</strong> {{ $articulo->stock_critico }}</p> --}}
+                    {{-- <p><strong>Costo neto:</strong>$ {{ number_format($articulo->costo_neto, 0, '', '.') }}</p> --}}
+                    {{-- <p><strong>I.V.A.:</strong>$ {{ number_format($articulo->costo_imp, 0, '', '.') }}</p> --}}
+                    {{-- <p><strong>Costo total:</strong>$
+                        {{ number_format($articulo->costo_neto + $articulo->costo_imp, 0, '', '.') }}</p> --}}
+                    {{-- <p><strong>Costo total stock:</strong>$
                         {{ number_format(($articulo->costo_neto + $articulo->costo_imp) * $articulo->stock, 0, '', '.') }}
-                    </p>
-                </div>
-                <div class="col-4">
-                    <p><strong>Venta neto:</strong>$ {{ number_format($articulo->venta_neto, 0, '', '.') }}</p>
-                    <p><strong>I.V.A.:</strong>$ {{ number_format($articulo->venta_imp, 0, '', '.') }}</p>
-                    <p><strong>Venta total:</strong>$
-                        {{ number_format($articulo->venta_neto + $articulo->venta_imp, 0, '', '.') }}</p>
-                    <p><strong>Venta total stock:</strong>$
+                    </p> --}}
+                    {{-- <p><strong>Venta neto:</strong>$ {{ number_format($articulo->venta_neto, 0, '', '.') }}</p> --}}
+                    {{-- <p><strong>I.V.A.:</strong>$ {{ number_format($articulo->venta_imp, 0, '', '.') }}</p> --}}
+                    {{-- <p><strong>Venta total:</strong>$
+                        {{ number_format($articulo->venta_neto + $articulo->venta_imp, 0, '', '.') }}</p> --}}
+                    {{-- <p><strong>Venta total stock:</strong>$
                         {{ number_format(($articulo->venta_neto + $articulo->venta_imp) * $articulo->stock, 0, '', '.') }}
-                    </p>
-                    <p><strong>Margen de venta:
+                    </p> --}}
+                    {{-- <p><strong>Margen de venta:
                         </strong>{{ number_format((($articulo->venta_neto + $articulo->venta_imp - ($articulo->costo_neto + $articulo->costo_imp)) / ($articulo->venta_neto + $articulo->venta_imp)) * 100, 2, ',', '.') }}%
-                    </p>
+                    </p> --}}
                 </div>
             </div>
 

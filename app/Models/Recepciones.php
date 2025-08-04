@@ -32,8 +32,7 @@ class Recepciones extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
-
-        public function region()
+	        public function region()
     {
         return $this->belongsTo(Region::class, 'region_id', 'id');
     }

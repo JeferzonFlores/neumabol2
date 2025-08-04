@@ -18,8 +18,8 @@ class CreateDetalleRecepcionsTable extends Migration
             $tables->foreignId('recepcion_id')->constrained($table = 'recepciones');
             $tables->foreignId('producto_id')->constrained($table = 'articulos');
             $tables->integer('cantidad');
-            $tables->integer('precio_unitario');
-            $tables->integer('impuesto_unitario');
+            // $tables->integer('precio_unitario'); // Eliminado
+            // $tables->integer('impuesto_unitario'); // Eliminado
             $tables->timestamps();
         });
     }

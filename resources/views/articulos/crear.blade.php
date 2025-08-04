@@ -33,18 +33,20 @@
         
         <div class="form-group row">
           <div class="col-6">
-            <label>Codigo interno</label>
+            <label>Tipo</label>
             <input name="cod_interno" required type="text" class="form-control">
           </div>
           <div class="col-6">
-            <label>Codigo de barras</label>
-            <input name="cod_barras" required type="text" class="form-control"">
+            <label>Medida</label>
+            <input name="cod_barras" required type="text" class="form-control">
           </div>
         </div>
         <div class="form-group">
           <label>Descripcion</label>
-          <input name="descripcion" required type="text" class="form-control"">
+          <input name="descripcion" required type="text" class="form-control">
         </div>
+        {{-- Campos de Venta y Stock Crítico eliminados --}}
+        {{--
         <div class="form-group row">
           <div class="col-4">
             <label>Venta neto</label>
@@ -60,24 +62,28 @@
               class="form-control">
           </div>
         </div>
+        --}}
         
-        <div class="form-goup row">
+        <div class="form-group row">
           <div class="col-6">
-            <label>Activo</label>
-            <select id="activo" name="activo" class="form-control">
-              
-              <option selected=true value="1">Activo</option>
-              <option  value="0">Inactivo</option>
-           </select>
+            <label>Marca</label>
+            <input name="marca" type="text" class="form-control" placeholder="Ingrese la marca">
           </div>
           <div class="col-6">
-            <label>Stock critico</label>
-            <input name="stock_critico" required type="number" class="form-control">
+            <label>Modelo</label>
+            <input name="modelo" type="text" class="form-control" placeholder="Ingrese el modelo">
           </div>
         </div>
 
-        <br>
+        <div class="form-group">
+          <label>Activo</label>
+          <select id="activo" name="activo" class="form-control">
+            <option selected="true" value="1">Activo</option>
+            <option value="0">Inactivo</option>
+          </select>
+        </div>
 
+        <br>
 
         <button type="button" class="btn btn-primary pull-left" data-toggle="modal" data-target="#modal">Crear
           Articulo</button>
@@ -85,7 +91,6 @@
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-
                 <h4 class="modal-title">Crear articulo</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
@@ -118,22 +123,9 @@
 @stop
 
 @section('js')
-
+{{-- Las funciones JavaScript ActualizaValorVentaTotal y ActualizaValorVentaNeto han sido eliminadas --}}
 <script>
-  function ActualizaValorVentaTotal() {
-    let valor = document.getElementById("venta_neto").value;
-    document.getElementById("venta_total").value = Math.round(valor * 1.19);
-    document.getElementById("venta_imp").value = Math.round((valor * 1.19) - valor);
-
- }
- 
-  function ActualizaValorVentaNeto() {
-    let valor = document.getElementById("venta_total").value;
-    document.getElementById("venta_neto").value = Math.round(valor / 1.19);
-    document.getElementById("venta_imp").value = Math.round(valor - (valor / 1.19));
-   
-  }
- 
+  // No hay funciones JavaScript relacionadas con los campos eliminados
 </script>
 @stop
 

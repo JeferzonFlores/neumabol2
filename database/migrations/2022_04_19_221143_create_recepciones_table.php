@@ -18,8 +18,8 @@ class CreateRecepcionesTable extends Migration
             $table->foreignId('proveedor_id')->constrained();
             $table->string('documento');
             $table->foreignId('tipo_documentos_id')->constrained();
-            $table->integer('total_neto');
-            $table->integer('total_iva');
+            // $table->integer('total_neto'); // Eliminado
+            // $table->integer('total_iva');  // Eliminado
             $table->integer('unidades');
             $table->string('observaciones');
             $table->date('fecha_recepcion');

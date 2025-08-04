@@ -38,6 +38,8 @@
           <label>Descripcion</label>
           <input name="descripcion" required type="text" class="form-control" value="{{$articulo->descripcion}}">
         </div>
+        {{-- Campos de Costo, Venta, Ganancia y Stock Crítico eliminados --}}
+        {{--
         <div class="form-group row">
           <div class="col-4">
             <label>Costo neto</label>
@@ -84,27 +86,43 @@
               value="{{number_format(($articulo->venta_imp + $articulo->venta_neto)-($articulo->costo_imp + $articulo->costo_neto), 0,'', '.')}}">
           </div>
         </div>
-        <div class="form-goup row">
+        --}}
+        <div class="form-group row">
           <div class="col-6">
-            <label>Activo</label>
-            <select id="activo" name="activo" class="form-control">
-              <option value="">Seleccioe</option>
-              @if ($articulo->activo == 1)
-              <option selected=true value="1">Activo</option>
-              <option value="2">Inactivo</option>
-              @else
-              <option value="1">Activo</option>
-              <option selected=true value="2">Inactivo</option @endif </select>
+            <label>Marca</label>
+            <input name="marca" type="text" class="form-control" value="{{$articulo->marca ?? ''}}">
           </div>
+          <div class="col-6">
+            <label>Modelo</label>
+            <input name="modelo" type="text" class="form-control" value="{{$articulo->modelo ?? ''}}">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Activo</label>
+          <select id="activo" name="activo" class="form-control">
+            <option value="">Seleccione</option>
+            @if ($articulo->activo == 1)
+            <option selected="true" value="1">Activo</option>
+            <option value="0">Inactivo</option> {{-- Cambiado de 2 a 0 para consistencia con boolean --}}
+            @else
+            <option value="1">Activo</option>
+            <option selected="true" value="0">Inactivo</option> {{-- Cambiado de 2 a 0 --}}
+            @endif
+          </select>
+        </div>
+        {{-- Campo Stock Crítico eliminado --}}
+        {{--
+        <div class="form-goup row">
           <div class="col-6">
             <label>Stock critico</label>
             <input name="stock_critico" required type="number" class="form-control"
               value="{{$articulo->stock_critico}}">
           </div>
         </div>
+        --}}
 
         <br>
-
 
         <button type="button" class="btn btn-primary pull-left" data-toggle="modal" data-target="#modal">Editar
           Articulo</button>
@@ -112,7 +130,6 @@
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-
                 <h4 class="modal-title">Modificar articulo</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
@@ -145,47 +162,9 @@
 @stop
 
 @section('js')
-
+{{-- Las funciones JavaScript relacionadas con cálculos de precios han sido eliminadas --}}
 <script>
-  function ActualizaValorVentaTotal() {
-    let valor = document.getElementById("venta_neto").value;
-    document.getElementById("venta_total").value = Math.round(valor * 1.19);
-    document.getElementById("venta_imp").value = Math.round((valor * 1.19) - valor);
-
-    ActualizaValorGanancia();
-
-  }
-  function ActualizaValorCostoTotal() {
-    let valor = document.getElementById("costo_neto").value;
-    document.getElementById("costo_total").value = Math.round(valor * 1.19);
-    document.getElementById("costo_imp").value = Math.round((valor * 1.19) - valor);
-
-    ActualizaValorGanancia();
-
-  }
-  function ActualizaValorVentaNeto() {
-    let valor = document.getElementById("venta_total").value;
-    document.getElementById("venta_neto").value = Math.round(valor / 1.19);
-    document.getElementById("venta_imp").value = Math.round(valor - (valor / 1.19));
-    ActualizaValorGanancia();
-  }
-  function ActualizaValorCostoNeto() {
-    let valor = document.getElementById("costo_total").value;
-    document.getElementById("costo_neto").value = Math.round(valor / 1.19);
-    document.getElementById("costo_imp").value = Math.round(valor - (valor / 1.19));
-    ActualizaValorGanancia();
-  }
-  function ActualizaValorGanancia() {
-    let venta_total = document.getElementById("venta_total").value;
-    let costo_total = document.getElementById("costo_total").value
-    document.getElementById("ganancia").value = venta_total - costo_total
-    ActualizaValorGananciaPor();
-  }
-  function ActualizaValorGananciaPor() {
-    let venta_total = document.getElementById("venta_total").value;
-    let costo_total = document.getElementById("costo_total").value;
-    document.getElementById("por_ganancia").value = Math.round(((venta_total - costo_total) / venta_total) * 100);
-  }
+  // No hay funciones JavaScript relacionadas con los campos eliminados
 </script>
 @stop
 

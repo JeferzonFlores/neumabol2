@@ -24,7 +24,7 @@
                             <td>Documento</td>
                             <td>Observaciones</td>
                             <td>Unidades</td>
-                            <td>Monto</td>
+                            {{-- <td>Monto</td> --}} {{-- ELIMINADO: total_neto y total_iva ya no existen en la tabla recepciones --}}
                             <td>Usuario</td>
                             <td>Fecha</td>
                             <td>Región</td>
@@ -43,10 +43,10 @@
                                 </td>
                                 <td>{{ $u->observaciones }}</td>
                                 <td>{{ $u->unidades }}</td>
-                                <td>
+                                {{-- <td>
                                     $
                                     {{ number_format($u->total_neto + $u->total_iva, 0, '', '.') }}
-                                </td>
+                                </td> --}} {{-- ELIMINADO --}}
                                 <td>{{ $u->user->name }}</td>
                                 <td>{{ $u->fecha_recepcion }}</td>
                                  <td>{{ $u->region->region ?? 'N/A' }}</td> 

@@ -18,8 +18,8 @@ class DetalleRecepcionSeeder extends Seeder
             'recepcion_id' => 1,
             'producto_id' => 1,
             'cantidad' => 2,
-            'precio_unitario' => 100,
-            'impuesto_unitario' => 19,
+            // 'precio_unitario' => 100, // Campo eliminado
+            // 'impuesto_unitario' => 19, // Campo eliminado
             'created_at' => now(),
             'updated_at' => now(),
         ]);

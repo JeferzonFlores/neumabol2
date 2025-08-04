@@ -249,12 +249,12 @@ return [
                     'route'  => 'recepciones.index',
                     'active' => ['Recepciones/*']
                 ],
-                [
+               /* [
                     'text'    => 'Ajustes de inventario',
                     'icon'    => 'fas fa-barcode',
                     'route'  => 'ajustesdeinventario.index',
                     'active' => ['AjustesDeInventario/*']
-                ],
+                ],*/
 
             ]
         ],

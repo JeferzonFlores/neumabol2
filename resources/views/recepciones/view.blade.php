@@ -27,24 +27,21 @@
                         ({{ $recepcion->Proveedor->rut }})</li>
                     <li><strong>Fecha recepcion:</strong> {{ date('d-m-Y', strtotime($recepcion->fecha_recepcion)) }}</li>
                     <li><strong> {{ $recepcion->documentos->tipo_documento }}:</strong> {{ $recepcion->documento }}</li>
-                    <li><strong>Región:</strong> {{ $recepcion->region->region ?? 'N/A' }}</li> {{-- ¡Nueva línea para la Región! --}}
-                    <li><strong>Monto total:</strong>
-                        ${{ number_format($recepcion->total_neto + $recepcion->total_iva, 0, ',', '.') }}</li>
+                    <li><strong>Región:</strong> {{ $recepcion->region->region ?? 'N/A' }}</li>
+                    {{-- <li><strong>Monto total:</strong> ${{ number_format($recepcion->total_neto + $recepcion->total_iva, 0, ',', '.') }}</li> --}}
+                    {{-- ELIMINADO: total_neto y total_iva ya no existen en la tabla recepciones --}}
                     <li><strong>Unidades:</strong> {{ number_format($recepcion->unidades, 0, ',', '.') }}</li>
                     <li><strong>Observaciones: </strong>{{ $recepcion->observaciones }}</li>
                     <li><strong>Usuario: </strong> {{ $recepcion->user->name }}</li>
                 </ul>
             </div>
 
-            <!-- Fin contenido -->
-        </div>
+            </div>
 
-        <!-- /.card-body -->
         <div class="card-footer">
             Recepcion
         </div>
-        <!-- /.card-footer-->
-    </div>
+        </div>
     <br>
     <div class="card">
         <div class="card-header">
@@ -65,9 +62,13 @@
                         <td>Codigo</td>
                         <td>Descripcion</td>
                         <td>Unidades</td>
-                        <td>Unitario</td>
-                        <td>I.V.A.</td>
-                        <td>Total</td>
+                        {{-- <td>Unitario</td> --}}
+                        {{-- <td>I.V.A.</td> --}}
+                        {{-- <td>Total</td> --}}
+                        {{-- Ahora mostraremos el costo real del artículo desde el Artículo si es necesario --}}
+                        <td>Costo Articulo (Neto)</td>
+                        <td>Costo Articulo (IVA)</td>
+                        <td>Subtotal (Neto * Unidades)</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -76,10 +77,12 @@
                             <th>{{ $d->Producto->cod_interno }}</th>
                             <td>{{ $d->Producto->descripcion }}</td>
                             <td>{{ number_format($d->cantidad, 0, ',', '.') }}</td>
-                            <td>${{ number_format($d->precio_unitario, 0, ',', '.') }}</td>
-                            <td>${{ number_format($d->impuesto_unitario, 0, ',', '.') }}</td>
-                            <td>${{ number_format(($d->precio_unitario + $d->impuesto_unitario) * $d->cantidad, 0, ',', '.') }}
-                            </td>
+                            {{-- Los siguientes campos ya no se guardan en DetalleRecepcion --}}
+                            {{-- Mostramos los costos actuales del Artículo o calculamos dinámicamente si es posible --}}
+                            <td>${{ number_format($d->Producto->costo_neto ?? 0, 0, ',', '.') }}</td>
+                            <td>${{ number_format($d->Producto->costo_imp ?? 0, 0, ',', '.') }}</td>
+                            <td>${{ number_format(($d->Producto->costo_neto ?? 0) * $d->cantidad, 0, ',', '.') }}</td>
+                            {{-- Si necesitas el total con IVA, sería ($d->Producto->costo_neto + $d->Producto->costo_imp) * $d->cantidad --}}
                         </tr>
                     @endforeach
                 </tbody>

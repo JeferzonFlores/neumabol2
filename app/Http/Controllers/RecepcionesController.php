@@ -42,13 +42,21 @@ class RecepcionesController extends Controller
     {
         $proveedores = Proveedor::all();
         $articulos = Articulo::all();
-         $regiones = Region::all(); 
+        $regiones = Region::all(); 
         return view('recepciones.create', compact(['proveedores', 'articulos', 'regiones']));
     }
     public function addArticulo(Request $request)
     {
         $recepcion_new = [];
         $recepcion_flag = false;
+
+        // Asumiendo que costo_neto y costo_imp en la request
+        // ahora se refieren a los valores del Artículo o son solo para cálculo temporal.
+
+        $articuloEncontrado = Articulo::find($request->articulo);
+        // $costoNetoArticulo = $articuloEncontrado ? $articuloEncontrado->costo_neto : 0; // Obtener de Articulo
+        // $costoImpArticulo = $articuloEncontrado ? $articuloEncontrado->costo_imp : 0; // Obtener de Articulo
+
         if (session('recepcion')) {
             $recepcion = session('recepcion');
 
@@ -59,9 +67,9 @@ class RecepcionesController extends Controller
                     $recepcion_tmp->articulo = Articulo::find($request->articulo);
                     $recepcion_tmp->articulo_id = $request->articulo;
                     $recepcion_tmp->cantidad = $request->unidades + $value['cantidad'];
-                    $recepcion_tmp->precio_unitario = $request->costo_neto;
-                    $recepcion_tmp->impuesto_unitario = $request->costo_imp;
-                    $recepcion_tmp->total = $request->costo_total * $request->unidades;
+                    // $recepcion_tmp->precio_unitario = $request->costo_neto; // Eliminado
+                    // $recepcion_tmp->impuesto_unitario = $request->costo_imp; // Eliminado
+                    // $recepcion_tmp->total = $request->costo_total * $request->unidades; // Eliminado
                     array_push($recepcion_new, $recepcion_tmp);
                     $recepcion_flag = true;
                 } else {
@@ -70,9 +78,9 @@ class RecepcionesController extends Controller
                     $recepcion_tmp->articulo = Articulo::find($value->articulo_id);
                     $recepcion_tmp->articulo_id = $value->articulo_id;
                     $recepcion_tmp->cantidad = $value['cantidad'];
-                    $recepcion_tmp->precio_unitario = $value['precio_unitario'];
-                    $recepcion_tmp->impuesto_unitario = $value['impuesto_unitario'];
-                    $recepcion_tmp->total = $value['total'];
+                    // $recepcion_tmp->precio_unitario = $value['precio_unitario']; // Eliminado
+                    // $recepcion_tmp->impuesto_unitario = $value['impuesto_unitario']; // Eliminado
+                    // $recepcion_tmp->total = $value['total']; // Eliminado
                     array_push($recepcion_new, $recepcion_tmp);
                 }
             }
@@ -82,9 +90,9 @@ class RecepcionesController extends Controller
                 $recepcion_tmp->articulo = Articulo::find($request->articulo);
                 $recepcion_tmp->articulo_id = $request->articulo;
                 $recepcion_tmp->cantidad = $request->unidades;
-                $recepcion_tmp->precio_unitario = $request->costo_neto;
-                $recepcion_tmp->impuesto_unitario = $request->costo_imp;
-                $recepcion_tmp->total = $request->costo_total * $request->unidades;
+                // $recepcion_tmp->precio_unitario = $request->costo_neto; // Eliminado
+                // $recepcion_tmp->impuesto_unitario = $request->costo_imp; // Eliminado
+                // $recepcion_tmp->total = $request->costo_total * $request->unidades; // Eliminado
                 array_push($recepcion_new, $recepcion_tmp);
             }
             session(['recepcion' => $recepcion_new]);
@@ -93,9 +101,9 @@ class RecepcionesController extends Controller
             $recepcion->articulo = Articulo::find($request->articulo);
             $recepcion->articulo_id = $request->articulo;
             $recepcion->cantidad = $request->unidades;
-            $recepcion->precio_unitario = $request->costo_neto;
-            $recepcion->impuesto_unitario = $request->costo_imp;
-            $recepcion->total = $request->costo_total * $request->unidades;
+            // $recepcion->precio_unitario = $request->costo_neto; // Eliminado
+            // $recepcion->impuesto_unitario = $request->costo_imp; // Eliminado
+            // $recepcion->total = $request->costo_total * $request->unidades; // Eliminado
             array_push($recepcion_new, $recepcion);
             session(['recepcion' => $recepcion_new]);
         }
@@ -105,40 +113,46 @@ class RecepcionesController extends Controller
         $proveedores = Proveedor::all();
         $articulos = Articulo::all();
         $tipo_documento = tipo_documento::all();
-         $regiones = Region::all(); 
+        $regiones = Region::all(); 
 
         return view('recepciones.create', compact(['proveedores', 'articulos', 'tipo_documento','regiones']));
     }
     public function store(Request $request)
     {
-
         $recepcion = new Recepciones();
         $recepcion->proveedor_id = $request->proveedor;
         $recepcion->documento = $request->numero_documento;
         $recepcion->tipo_documentos_id = $request->tipo_documento;
-        $recepcion->total_neto = $request->monto_neto;
-        $recepcion->total_iva = $request->monto_imp;
+        // Campos eliminados de la tabla recepciones (total_neto, total_iva)
+        // Por lo tanto, no se asignan aquí.
+        // Si necesitas calcular los totales de la recepción, deberías sumarlos de los detalles.
+        // $recepcion->total_neto = $request->monto_neto; // Eliminado
+        // $recepcion->total_iva = $request->monto_imp;   // Eliminado
         $recepcion->unidades = $request->total_articulos;
         $recepcion->fecha_recepcion = Carbon::now()->format('Y-m-d');
         $recepcion->observaciones = $request->observaciones;
         $recepcion->user_id = Auth::user()->id;
-         $recepcion->region_id = $request->region_id;
+        $recepcion->region_id = $request->region_id;
         $recepcion->timestamps = false;
         $recepcion->save();
+
         $detalle = session('recepcion');
         foreach ($detalle as $value) {
             $detalle_recepcion = new DetalleRecepcion();
             $detalle_recepcion->recepcion_id = $recepcion->id;
             $detalle_recepcion->producto_id = $value->articulo_id;
             $detalle_recepcion->cantidad = $value->cantidad;
-            $detalle_recepcion->precio_unitario = $value->precio_unitario;
-            $detalle_recepcion->impuesto_unitario = $value->impuesto_unitario;
+            // $detalle_recepcion->precio_unitario = $value->precio_unitario; // Eliminado de DetalleRecepcion
+            // $detalle_recepcion->impuesto_unitario = $value->impuesto_unitario; // Eliminado de DetalleRecepcion
             $detalle_recepcion->save();
 
             $articulo = Articulo::find($value->articulo_id);
             $articulo->stock = $articulo->stock + $value->cantidad;
-            $articulo->costo_neto = $value->precio_unitario;
-            $articulo->costo_imp = $value->impuesto_unitario;
+            // Las siguientes líneas se eliminan porque $value->precio_unitario y $value->impuesto_unitario
+            // ya no existen en el objeto DetalleRecepcion ($value) y no hay una nueva fuente para el costo del artículo desde la recepción.
+            // Si deseas actualizar el costo del artículo con la recepción, deberás reintroducir un campo en el formulario.
+            // $articulo->costo_neto = $value->precio_unitario; 
+            // $articulo->costo_imp = $value->impuesto_unitario; 
             $articulo->save();
 
             $detalleMovimiento = new DetalleMovimientosArticulos();

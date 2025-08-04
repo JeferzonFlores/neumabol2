@@ -26,8 +26,11 @@
                         <td>Codigo interno</td>
                         <td>Codigo de barras</td>
                         <td>Descripcion</td>
-                        <td>Stock</td>
-                        <td>PVP</td>
+                        <td>Marca</td> {{-- Nuevo campo --}}
+                        <td>Modelo</td> {{-- Nuevo campo --}}
+                        {{-- Campos eliminados: Stock, PVP --}}
+                        {{-- <td>Stock</td> --}}
+                        {{-- <td>PVP</td> --}}
                         <td>Activo</td>
                         <td>Acciones</td>
                     </tr>
@@ -39,8 +42,11 @@
                             <td>{{ $u->cod_interno }}</td>
                             <td>{{ $u->cod_barras }}</td>
                             <td>{{ $u->descripcion }}</td>
-                            <td>{{ $u->stock }}</td>
-                            <td>$ {{ number_format($u->venta_neto + $u->venta_imp, 0, '', '.') }}</td>
+                            <td>{{ $u->marca }}</td> {{-- Nuevo campo --}}
+                            <td>{{ $u->modelo }}</td> {{-- Nuevo campo --}}
+                            {{-- Campos eliminados: Stock, PVP --}}
+                            {{-- <td>{{ $u->stock }}</td> --}}
+                            {{-- <td>$ {{ number_format($u->venta_neto + $u->venta_imp, 0, '', '.') }}</td> --}}
                             @if ($u->activo)
                                 <td>Activo</td>
                             @else
@@ -80,7 +86,7 @@
         $(document).ready(function() {
             $('#example').DataTable({
                 "columnDefs": [{
-                    "targets": [2],
+                    "targets": [2], // Puedes ajustar esto si necesitas ocultar otra columna
                     "visible": false,
                     "searchable": true
                 }],

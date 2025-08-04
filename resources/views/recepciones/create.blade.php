@@ -34,13 +34,11 @@
                         @csrf
 
                         <div class="row">
-
                             <div class="col-12 form-group">
                                 <label>Articulo</label>
                                 <select id="articulo" autofocus name="articulo" required class="form-control select2">
                                     <option value="">Buscar articulo</option>
                                     <?php
-                                    
                                     foreach ($articulos as $t) {
                                         echo '<option value="' .
                                             $t['id'] .
@@ -50,13 +48,14 @@
                                             $t['cod_interno'] .
                                             ' - ' .
                                             $t['descripcion'] .
-                                            '</option>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ';
+                                            '</option>';
                                     }
                                     ?>
                                 </select>
                             </div>
                         </div>
-                        <div class="row">
+                        {{-- Campos eliminados: Neto unitario, I.V.A., Total unitario --}}
+                        {{-- <div class="row">
                             <div class="form-group col-6">
                                 <label>Neto unitario</label>
                                 <input name="costo_neto" id="costo_neto" min="1" class="form-control" required
@@ -73,12 +72,12 @@
                                 <label>Total unitario</label>
                                 <input name="costo_total" id="costo_total" min="1" required type="number"
                                     oninput="ActualizaValorCostoNeto()" class="form-control">
-                            </div>
+                            </div> --}}
                             <div class="col-6">
                                 <label>Unidades</label>
                                 <input name="unidades" required min="1" type="number" class="form-control">
                             </div>
-                        </div>
+                        {{-- </div> --}} {{-- Cierre de div.row para los campos eliminados --}}
                         <br>
                         <button type="submit" class="btn btn-primary pull-left">Agregar articulo</button>
                         <div class="btn-group">
@@ -90,15 +89,20 @@
                 @if (session('recepcion'))
                     @php
                         $total_unidades = 0;
-                        $total_costo_neto = 0;
-                        $total_costo_imp = 0;
-                        $total_costo_total = 0;
+                        $total_costo_neto_sesion = 0; // Renombrado para claridad
+                        $total_costo_imp_sesion = 0; // Renombrado para claridad
+                        $total_costo_total_sesion = 0; // Renombrado para claridad
                         
                         foreach (session('recepcion') as $r) {
                             $total_unidades += $r->cantidad;
-                            $total_costo_neto += $r->precio_unitario * $r->cantidad;
-                            $total_costo_imp += $r->impuesto_unitario * $r->cantidad;
-                            $total_costo_total += ($r->precio_unitario + $r->impuesto_unitario) * $r->cantidad;
+                            // Ahora, si necesitas los costos, debes obtenerlos del Articulo asociado
+                            $articulo_asociado = App\Models\Articulo::find($r->articulo_id);
+                            $costo_neto_articulo = $articulo_asociado->costo_neto ?? 0;
+                            $costo_imp_articulo = $articulo_asociado->costo_imp ?? 0;
+
+                            $total_costo_neto_sesion += $costo_neto_articulo * $r->cantidad;
+                            $total_costo_imp_sesion += $costo_imp_articulo * $r->cantidad;
+                            $total_costo_total_sesion += ($costo_neto_articulo + $costo_imp_articulo) * $r->cantidad;
                         }
                     @endphp
                     <div class="btn-group float-right">
@@ -164,22 +168,21 @@
                                             <input id="observaciones" required name="observaciones" type="text"
                                                 class="form-control input-sm" value="">
                                         </div>
-                                        <div class="form-group">
-                                            <label>Monto total</label>
-                                            <input id="monto_total" name="monto_total" disabled type="text"
-                                                class="form-control input-sm"
-                                                value="${{ number_format($total_costo_total, 0, ',', '.') }}">
-                                            <input id="monto_neto" name="monto_neto" type="hidden"
-                                                class="form-control input-sm" value="{{ $total_costo_neto }}">
-                                            <input id="monto_imp" name="monto_imp" type="hidden"
-                                                class="form-control input-sm" value=" {{ $total_costo_imp }}">
-                                        </div>
-
+                                        {{-- Campos de Monto total, monto_neto, monto_imp eliminados de la tabla 'recepciones' --}}
+                                        {{-- Ahora solo mostraremos el total de las unidades --}}
+                                        {{-- Si quieres calcular el monto total de la recepción, deberías hacerlo en el controlador
+                                            sumando los costos de los artículos de cada detalle. --}}
                                         <div class="form-group">
                                             <label>Total articulos</label>
                                             <input id="total_articulos" name="total_articulos" readonly type="text"
                                                 class="form-control input-sm"
                                                 value="{{ number_format($total_unidades, 0, ',', '.') }}">
+                                            {{-- Estos inputs ya no se corresponden con campos de la base de datos
+                                                <input id="monto_neto" name="monto_neto" type="hidden" class="form-control input-sm" value="{{ $total_costo_neto_sesion }}">
+                                                <input id="monto_imp" name="monto_imp" type="hidden" class="form-control input-sm" value=" {{ $total_costo_imp_sesion }}">
+                                                Si necesitas enviar estos valores al controlador, puedes hacerlo,
+                                                pero ten en cuenta que no se guardarán en la tabla de recepciones.
+                                            --}}
                                         </div>
                                 </div>
                                 <div class="modal-footer">
@@ -199,14 +202,9 @@
             @if (session('recepcion'))
                 <div class="col-md-6">
 
-
-
                     <ol>
                         <li><Strong>Total unidades: </Strong>{{ number_format($total_unidades, 0, ',', '.') }}</li>
-                        <li><Strong>Total costo neto: </Strong>${{ number_format($total_costo_neto, 0, ',', '.') }}</li>
-                        <li><Strong>Total costo impuesto: </Strong>${{ number_format($total_costo_imp, 0, ',', '.') }}
-                        </li>
-                        <li><Strong>Total costo total: </Strong>${{ number_format($total_costo_total, 0, ',', '.') }}
+
                         </li>
                     </ol>
 
@@ -219,14 +217,9 @@
 
     <br>
 
-    <!-- Fin contenido -->
-
-
-    <!-- /.card-body -->
     <div class="card-footer">
         Crear articulo
     </div>
-    <!-- /.card-footer-->
     </div>
     @if (session('recepcion'))
         <div class="card">
@@ -250,21 +243,29 @@
                             <td>Codigo</td>
                             <td>Descripcion</td>
                             <td>Unidades</td>
-                            <td>Unitario</td>
-                            <td>I.V.A.</td>
-                            <td>Total</td>
+                            {{-- <td>Unitario</td> --}}
+                            {{-- <td>I.V.A.</td> --}}
+                            {{-- <td>Total</td> --}}
+                            {{-- Ahora mostramos los costos del artículo, no del detalle de recepción --}}
+                          {{-- <td>Costo Articulo (Neto)</td> --}}
+                          {{--  <td>Costo Articulo (IVA)</td> --}}
+                            {{-- <td>Subtotal (Neto * Unidades)</td> --}}
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (session('recepcion') as $r)
+                            @php
+                                $articulo_asociado = App\Models\Articulo::find($r->articulo_id);
+                                $costo_neto_articulo = $articulo_asociado->costo_neto ?? 0;
+                                $costo_imp_articulo = $articulo_asociado->costo_imp ?? 0;
+                            @endphp
                             <tr>
                                 <th>{{ $r->articulo->id }}</th>
                                 <td>{{ $r->articulo->descripcion }}</td>
-                                <td>{{ number_format($r->cantidad, 0, ',', '.') }}</td>
-                                <td>${{ number_format($r->precio_unitario, 0, ',', '.') }}</td>
-                                <td>${{ number_format($r->impuesto_unitario, 0, ',', '.') }}</td>
-                                <td>${{ number_format(($r->precio_unitario + $r->impuesto_unitario) * $r->cantidad, 0, ',', '.') }}
-                                </td>
+                             {{--   <td>{{ number_format($r->cantidad, 0, ',', '.') }}</td> --}}
+                             {{--   <td>${{ number_format($costo_neto_articulo, 0, ',', '.') }}</td> --}}
+                             {{--   <td>${{ number_format($costo_imp_articulo, 0, ',', '.') }}</td> --}}
+                           <td>{{ number_format( $r->cantidad, 0, ',', '.') }}</td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -277,19 +278,18 @@
 @section('js')
 
     <script>
-        function ActualizaValorCostoTotal() {
-            let valor = document.getElementById("costo_neto").value;
-            document.getElementById("costo_total").value = Math.round(valor * 1.19);
-            document.getElementById("costo_imp").value = Math.round((valor * 1.19) - valor);
+        // Funciones de cálculo unitario eliminadas, ya que los campos de entrada asociados fueron removidos.
+        // function ActualizaValorCostoTotal() {
+        //     let valor = document.getElementById("costo_neto").value;
+        //     document.getElementById("costo_total").value = Math.round(valor * 1.19);
+        //     document.getElementById("costo_imp").value = Math.round((valor * 1.19) - valor);
+        // }
 
-        }
-
-        function ActualizaValorCostoNeto() {
-            let valor = document.getElementById("costo_total").value;
-            document.getElementById("costo_neto").value = Math.round(valor / 1.19);
-            document.getElementById("costo_imp").value = Math.round(valor - (valor / 1.19));
-
-        }
+        // function ActualizaValorCostoNeto() {
+        //     let valor = document.getElementById("costo_total").value;
+        //     document.getElementById("costo_neto").value = Math.round(valor / 1.19);
+        //     document.getElementById("costo_imp").value = Math.round(valor - (valor / 1.19));
+        // }
         $(document).ready(function() {
             $("#example").DataTable({
                 order: [

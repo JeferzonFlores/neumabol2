@@ -43,13 +43,18 @@ class ArticulosController extends Controller
         $articulo->cod_interno = $request->cod_interno;
         $articulo->cod_barras = $request->cod_barras;
         $articulo->descripcion = $request->descripcion;
-        $articulo->costo_neto = 0;
-        $articulo->costo_imp = 0;
-        $articulo->stock = 0;
-        $articulo->venta_neto = $request->venta_neto;
-        $articulo->venta_imp = $request->venta_imp;
-        $articulo->stock_critico = $request->stock_critico;
+        // Campos eliminados ya no se asignan:
+        // $articulo->costo_neto = 0;
+        // $articulo->costo_imp = 0;
+        // $articulo->stock = 0; // Campo 'stock' eliminado
+        // $articulo->venta_neto = $request->venta_neto; // Eliminado
+        // $articulo->venta_imp = $request->venta_imp;   // Eliminado
+        // $articulo->stock_critico = $request->stock_critico; // Eliminado
         $articulo->activo = $request->activo;
+
+        // Nuevos campos
+        $articulo->marca = $request->marca;
+        $articulo->modelo = $request->modelo;
 
         try {
             $articulo->save();
@@ -58,7 +63,7 @@ class ArticulosController extends Controller
                 $articulos = Articulo::all();
                 $tipo_documento = tipo_documento::all();
 
-                return view('recepciones.create', compact(['proveedores', 'articulos', 'tipo_documento']))->with([
+                return view('articulos.index', compact(['proveedores', 'articulos', 'tipo_documento']))->with([
                     'error' => 'Exito',
                     'mensaje' => 'Articulo creado con exito',
                     'tipo' => 'alert-success'
@@ -113,19 +118,24 @@ class ArticulosController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Articulo  $articulo
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Articulo $articulo)
     {
         $articulo->cod_interno = $request->cod_interno;
         $articulo->cod_barras = $request->cod_barras;
         $articulo->descripcion = $request->descripcion;
-        $articulo->costo_neto = $request->costo_neto;
-        $articulo->costo_imp = $request->costo_imp;
-        $articulo->venta_neto = $request->venta_neto;
-        $articulo->venta_imp = $request->venta_imp;
-        $articulo->stock_critico = $request->stock_critico;
+        // Campos eliminados ya no se asignan:
+        // $articulo->costo_neto = $request->costo_neto;
+        // $articulo->costo_imp = $request->costo_imp;
+        // $articulo->venta_neto = $request->venta_neto;
+        // $articulo->venta_imp = $request->venta_imp;
+        // $articulo->stock_critico = $request->stock_critico;
         $articulo->activo = $request->activo;
+
+        // Nuevos campos
+        $articulo->marca = $request->marca;
+        $articulo->modelo = $request->modelo;
 
         try {
             $articulo->save();

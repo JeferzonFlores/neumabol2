@@ -19,8 +19,8 @@ class RecepcionesSeeder extends Seeder
             'proveedor_id' => 1,
             'documento' => '25',
             'tipo_documentos_id' => 33,
-            'total_neto' => 100,
-            'total_iva' => 19,
+            // 'total_neto' => 100, // Campo eliminado
+            // 'total_iva' => 19,   // Campo eliminado
             'unidades' => 2,
             'observaciones' => 'Recepcion de prueba',
             'fecha_recepcion' => '2022-05-27',

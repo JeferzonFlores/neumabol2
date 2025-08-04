@@ -14,12 +14,15 @@ class Articulo extends Model
         'cod_interno',
         'cod_barras',
         'descripcion',
-        'costo_neto',
-        'costo_imp',
-        'venta_neto',
-        'venta_imp',
-        'stock',
-        'stock_critico',
-        'activo'
+        // Campos eliminados en peticiones anteriores:
+        // 'costo_neto',
+        // 'costo_imp',
+        // 'venta_neto',
+        // 'venta_imp',
+        // 'stock', // Campo 'stock' eliminado
+        // 'stock_critico', // Campo eliminado
+        'activo',
+        'marca', // Nuevo campo
+        'modelo' // Nuevo campo
     ];
 }
