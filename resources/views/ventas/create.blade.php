@@ -57,7 +57,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="row">
+{{--                       <div class="row">
                             <div class="form-group col-6">
                                 <label>Neto unitario</label>
                                 <input name="venta_neto" id="venta_neto" min="1" class="form-control" required
@@ -68,20 +68,20 @@
                                 <input name="venta_imp" id="venta_imp" readonly required type="number"
                                     class="form-control">
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="form-goup row">
-                            <div class="form-group col-6">
+                           {{-- <div class="form-group col-6">
                                 <label>Total unitario</label>
                                 <input name="venta_total" id="venta_total" min="1" required type="number"
                                     oninput="ActualizaValorCostoNeto()" class="form-control">
-                            </div>
+                            </div> --}}
                             <div class="col-6">
                                 <label>Unidades</label>
                                 <input name="unidades" id="unidades" required min="1" type="number"
                                     class="form-control">
                             </div>
                         </div>
-                        <div class="form-goup row">
+{{--                        <div class="form-goup row">
                             <div class="form-group col-6">
                                 <label>Costo total</label>
                                 <input name="costo_total" id="costo_total" min="1" required type="number" readonly
@@ -97,7 +97,7 @@
                                     value="">
 
                             </div>
-                        </div>
+                        </div> --}}
                         <br>
                         <button type="submit" class="btn btn-primary pull-left">Agregar articulo</button>
                         @if (session('venta'))
@@ -184,7 +184,7 @@
                                                         </option>
                                                     @endforeach
                                                 </select>
-                                            </div>
+{{--                                            </div>
                                             <div class="form-group">
                                                 <label>Monto total</label>
                                                 <input id="monto_total" name="monto_total" disabled type="text"
@@ -201,7 +201,7 @@
 
 
 
-                                            </div>
+                                            </div> --}}
 
                                             <div class="form-group">
                                                 <label>Total articulos</label>
@@ -231,14 +231,14 @@
 
                         <ol>
                             <li><Strong>Total unidades: </Strong>{{ number_format($total_unidades, 0, ',', '.') }}</li>
-                            <li><Strong>Total venta neto: </Strong>${{ number_format($total_venta_neto, 0, ',', '.') }}
+{{--                            <li><Strong>Total venta neto: </Strong>${{ number_format($total_venta_neto, 0, ',', '.') }}
                             </li>
                             <li><Strong>Total venta impuesto: </Strong>${{ number_format($total_venta_imp, 0, ',', '.') }}
                             </li>
                             <li><Strong>Total venta: </Strong>${{ number_format($total_venta_total, 0, ',', '.') }}
                             </li>
                             <li><Strong>Total ganancia: </Strong>${{ number_format($ganancia_total, 0, ',', '.') }}
-                            </li>
+                            </li> --}}
                         </ol>
 
                         <br>
@@ -281,10 +281,10 @@
                             <td>Codigo</td>
                             <td>Descripcion</td>
                             <td>Unidades</td>
-                            <td>Unitario</td>
+{{--                           <td>Unitario</td>
                             <td>I.V.A.</td>
                             <td>Total</td>
-                            <td>Ganancia</td>
+                            <td>Ganancia</td> --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -293,11 +293,11 @@
                                 <th>{{ $r->articulo->id }}</th>
                                 <td>{{ $r->articulo->descripcion }}</td>
                                 <td>{{ number_format($r->cantidad, 0, ',', '.') }}</td>
-                                <td>${{ number_format($r->precio_unitario, 0, ',', '.') }}</td>
+                               {{-- <td>${{ number_format($r->precio_unitario, 0, ',', '.') }}</td>
                                 <td>${{ number_format($r->impuesto_unitario, 0, ',', '.') }}</td>
                                 <td>${{ number_format(($r->precio_unitario + $r->impuesto_unitario) * $r->cantidad, 0, ',', '.') }}
                                 </td>
-                                <td>${{ number_format($r->ganancia * $r->cantidad, 0, ',', '.') }}</td>
+                                <td>${{ number_format($r->ganancia * $r->cantidad, 0, ',', '.') }}</td> --}}
                             </tr>
                         @endforeach
                     </tbody>

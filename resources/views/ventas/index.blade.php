@@ -1,8 +1,8 @@
 @extends('adminlte::page')
-@section('title', 'Ver Ventas')
+@section('title', 'Ver Salidas de Artículos') {{-- Título actualizado --}}
 @section('content_header')
-    <h1>Ventas</h1>
-    <p>Administracion de ventas</p>
+    <h1>Salidas de Artículos</h1> {{-- Título actualizado --}}
+    <p>Administración de salidas de artículos</p> {{-- Descripción actualizada --}}
     @if (session('error'))
         <div class="alert {{ session('tipo') }} alert-dismissible fade show" role="alert">
             <strong>{{ session('error') }}</strong> {{ session('mensaje') }}
@@ -20,10 +20,10 @@
                     <thead>
                         <tr>
                             <td>ID</td>
-                            <td>Cliente</td>
+                            <td>Cliente/Destinatario</td> {{-- Etiqueta actualizada --}}
                             <td>Documento</td>
-                            <td>Monto</td>
-                            <td>Medio de pago</td>
+                            <td>Cantidad Total Artículos</td> {{-- Columna actualizada --}}
+                            <td>Medio de registro</td> {{-- Etiqueta actualizada --}}
                             <td>Fecha</td>
                             <td>Usuario</td>
                             <td>Ver</td>
@@ -35,7 +35,7 @@
                                 <td>{{ $v->id }}</td>
                                 <td>{{ $v->Cliente->nombre }} ({{ $v->Cliente->rut }})</td>
                                 <td>{{ $v->TipoDocumento->tipo_documento }}: {{ $v->documento }}</td>
-                                <td>$ {{ number_format($v->monto_neto + $v->monto_imp, 0, '', '.') }}</td>
+                                <td>{{ number_format($v->unidades, 0, '', '.') }}</td> {{-- Muestra el campo 'unidades' --}}
                                 <td>{{ $v->MedioDePago->medio_de_pago }}</td>
                                 <td>{{ date('d-m-Y H:s', strtotime($v->created_at)) }}</td>
                                 <td>{{ $v->user->name }}</td>
@@ -51,7 +51,7 @@
                 </table>
                 <br />
                 <div class="btn-group">
-                    <a type="button" class="btn btn-success" href="{{ route('ventas.create') }}">Agregar venta</a>
+                    <a type="button" class="btn btn-success" href="{{ route('ventas.create') }}">Registrar nueva salida</a> {{-- Botón actualizado --}}
                 </div>
             </div>
         </div>

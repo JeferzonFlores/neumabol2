@@ -58,10 +58,10 @@ class VentasController extends Controller
                     $venta_tmp->articulo = Articulo::find($request->articulo);
                     $venta_tmp->articulo_id = $request->articulo;
                     $venta_tmp->cantidad = $request->unidades + $value['cantidad'];
-                    $venta_tmp->precio_unitario = $request->venta_neto;
-                    $venta_tmp->impuesto_unitario = $request->venta_imp;
-                    $venta_tmp->ganancia = $request->ganancia;
-                    $venta_tmp->total = $request->venta_total * $request->unidades;
+                    $venta_tmp->precio_unitario = 0;
+                    $venta_tmp->impuesto_unitario = 0;
+                    $venta_tmp->ganancia = 0;
+                    $venta_tmp->total = 0;
                     array_push($venta_new, $venta_tmp);
                     $venta_flag = true;
                 } else {
@@ -70,10 +70,10 @@ class VentasController extends Controller
                     $venta_tmp->articulo = Articulo::find($value->articulo_id);
                     $venta_tmp->articulo_id = $value->articulo_id;
                     $venta_tmp->cantidad = $value['cantidad'];
-                    $venta_tmp->precio_unitario = $value['precio_unitario'];
-                    $venta_tmp->impuesto_unitario = $value['impuesto_unitario'];
-                    $venta_tmp->ganancia = $value['ganancia'];
-                    $venta_tmp->total = $value['total'];
+                    $venta_tmp->precio_unitario = 0;
+                    $venta_tmp->impuesto_unitario = 0;
+                    $venta_tmp->ganancia = 0;
+                    $venta_tmp->total = 0;
                     array_push($venta_new, $venta_tmp);
                 }
             }
@@ -83,10 +83,10 @@ class VentasController extends Controller
                 $venta_tmp->articulo = Articulo::find($request->articulo);
                 $venta_tmp->articulo_id = $request->articulo;
                 $venta_tmp->cantidad = $request->unidades;
-                $venta_tmp->precio_unitario = $request->venta_neto;
-                $venta_tmp->impuesto_unitario = $request->venta_imp;
+                $venta_tmp->precio_unitario = 0;
+                $venta_tmp->impuesto_unitario = 0;
                 $venta_tmp->ganancia = $request->ganancia;
-                $venta_tmp->total = $request->costo_total * $request->unidades;
+                $venta_tmp->total = 0;
                 array_push($venta_new, $venta_tmp);
             }
             session(['venta' => $venta_new]);
@@ -95,10 +95,10 @@ class VentasController extends Controller
             $venta->articulo = Articulo::find($request->articulo);
             $venta->articulo_id = $request->articulo;
             $venta->cantidad = $request->unidades;
-            $venta->precio_unitario = $request->venta_neto;
-            $venta->impuesto_unitario = $request->venta_imp;
-            $venta->ganancia = $request->ganancia;
-            $venta->total = $request->costo_total * $request->unidades;
+            $venta->precio_unitario = 0;
+            $venta->impuesto_unitario = 0;
+            $venta->ganancia = 0;
+            $venta->total = 0;
             array_push($venta_new, $venta);
             session(['venta' => $venta_new]);
         }
@@ -130,10 +130,10 @@ class VentasController extends Controller
             $venta->cliente_id = $request->cliente;
             $venta->tipo_documentos_id = $request->tipo_documento;
             $venta->documento = $request->numero_documento;
-            $venta->monto_neto = $request->monto_neto;
-            $venta->monto_imp = $request->monto_imp;
-            $venta->costo_neto = $request->costo_neto;
-            $venta->costo_imp = $request->costo_imp;
+            $venta->monto_neto = 0;
+            $venta->monto_imp = 0;
+            $venta->costo_neto = 0;
+            $venta->costo_imp = 0;
             $venta->medio_pago_id = $request->medio_de_pago;
             $venta->unidades = $request->total_articulos;
             $venta->user_id = Auth::user()->id;
@@ -146,10 +146,10 @@ class VentasController extends Controller
                 $detalle->venta_id = $venta_id;
                 $detalle->producto_id = $value->articulo_id;
                 $detalle->cantidad = $value->cantidad;
-                $detalle->precio_neto = $value->precio_unitario;
-                $detalle->precio_imp = $value->impuesto_unitario;
-                $detalle->costo_neto = $value->articulo->costo_neto;
-                $detalle->costo_imp = $value->articulo->costo_imp;
+                $detalle->precio_neto = 0;
+                $detalle->precio_imp = 0;
+                $detalle->costo_neto = 0;
+                $detalle->costo_imp = 0;
                 $detalle->save();
 
                 $detalleMovimiento = new DetalleMovimientosArticulos();
@@ -162,8 +162,8 @@ class VentasController extends Controller
 
                 $articulo = Articulo::find($value->articulo_id);
                 $articulo->stock = $articulo->stock - $value->cantidad;
-                $articulo->costo_neto = $value->precio_unitario;
-                $articulo->costo_imp = $value->impuesto_unitario;
+                $articulo->costo_neto = 0;
+                $articulo->costo_imp = 0;
                 $articulo->save();
 
                 $tipo_documento = tipo_documento::find($request->tipo_documento);
@@ -172,7 +172,7 @@ class VentasController extends Controller
             }
             return redirect()->route('ventas.index')->with([
                 'error' => 'Venta agregada',
-                'mensaje' => 'Venta registrada correctamente',
+                'mensaje' => 'Salida registrada correctamente',
                 'tipo' => 'alert-success'
             ]);
         }

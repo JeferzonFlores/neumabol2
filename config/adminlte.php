@@ -226,7 +226,7 @@ return [
 
     'menu' =>         [
         [
-            'text'    => 'Ventas',
+            'text'    => 'Salidas',
             'icon'    => 'fas fa-file-invoice',
             'route'  => 'ventas.index',
             'active' => ['Ventas/*']
