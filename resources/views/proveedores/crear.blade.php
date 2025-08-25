@@ -23,26 +23,27 @@
     <div class="col-md-6">
       <form role="form" action="{{route('proveedores.store')}}" method="POST">
         @csrf
-        <div class="form-group">
+{{--    <div class="form-group">
           <label>RUT</label>
           <input oninput="checkRut(this)" name="rut" required type="text" class="form-control">
         </div>
         <div class="form-group">
           <label>Nombre de fantasia</label>
           <input name="nombre_fantasia" required type="text" class="form-control">
-        </div>
+        </div> --}}
         <div class="form-group">
           <label>Razon social</label>
           <input name="razon_social" required type="text" class="form-control">
         </div>
+            {{-- 
         <div class="form-group">
           <label>Giro</label>
           <input name="giro" required type="text" class="form-control">
         </div>
-        <div class="form-group">
+   <div class="form-group">
           <label>Direccion</label>
           <input name="direccion" required type="text" class="form-control">
-        </div>
+        </div> --}}
 
         <div class="form-goup">
           <label>Region</label>
@@ -53,6 +54,7 @@
            @endforeach
           </select>
         </div>
+        {{--
         <div class="form-goup">
             <label>Comuna</label>
           <select id="comuna" name="comuna" class="form-control">
@@ -60,6 +62,8 @@
            
           </select>
         </div>
+--}}
+       {{-- 
         <div class="form-group">
           <label>E-mail</label>
           <input name="email" required type="text" class="form-control">
@@ -68,7 +72,7 @@
           <label>Telefono</label>
           <input name="telefono" required type="number" class="form-control">
         </div>
-
+--}}
         <button type="button" class="btn btn-primary pull-left" data-toggle="modal" data-target="#modal">Crear
           proveedor</button>
         <div class="modal fade" id="modal">

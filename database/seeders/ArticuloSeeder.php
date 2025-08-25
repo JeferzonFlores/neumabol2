@@ -26,6 +26,7 @@ class ArticuloSeeder extends Seeder
             //'venta_imp' => 319,
             //'stock' => 1,
             //'stock_critico' => 5,
+            'marca' => 'Goodyear',
             'activo' => true,
             'created_at' =>  \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now()

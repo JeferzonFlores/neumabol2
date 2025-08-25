@@ -133,7 +133,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Numero documento</label>
-                                            <input id="numero_documento" name="numero_documento" required type="number"
+                                            <input id="numero_documento" name="numero_documento" required type="text"
                                                 class="form-control input-sm">
                                         </div>
 

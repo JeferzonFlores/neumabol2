@@ -40,19 +40,19 @@ class ProveedoresController extends Controller
     public function store(Request $request)
     {
         $proveedor = new Proveedor();
-        $proveedor->rut = $request->rut;
-        $proveedor->nombre_fantasia = $request->nombre_fantasia;
+        //$proveedor->rut = $request->rut;
+        //$proveedor->nombre_fantasia = $request->nombre_fantasia;
         $proveedor->razon_social = $request->razon_social;
-        $proveedor->giro = $request->giro;
-        $proveedor->direccion = $request->direccion;
-        $proveedor->comuna_id =  $request->comuna;
+        //$proveedor->giro = $request->giro;
+        //$proveedor->direccion = $request->direccion;
+        //$proveedor->comuna_id =  $request->comuna;
         $proveedor->region_id = $request->region;
-        $proveedor->mail = $request->email;
-        $proveedor->telefono = $request->telefono;
+        //$proveedor->mail = $request->email;
+        //$proveedor->telefono = $request->telefono;
         try {
             $proveedor->save();
             return redirect()->route('proveedores.index')->with([
-                'error' => 'Exito',
+                'error' => ' ',
                 'mensaje' => 'Proveedor creado con exito',
                 'tipo' => 'alert-success'
             ]);

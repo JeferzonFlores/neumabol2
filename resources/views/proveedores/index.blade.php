@@ -23,10 +23,10 @@
             <thead>
                 <tr>
                     <td>ID</td>
-                    <td>Nombre de fantasia</td>
-                    <td>RUT</td>
+                    <td>Nombre de Proveedor</td>
+                {{--    <td>RUT</td>
                     <td>Telefono</td>
-                    <td>comuna</td>
+                    <td>comuna</td> --}}
                     <td>Editar</td>
                 </tr>
             </thead>
@@ -34,10 +34,12 @@
                 @foreach ($proveedores as $u)
                 <tr>
                         <td>{{$u->id}}</td>
-                        <td>{{$u->nombre_fantasia}}</td>
+                        <td>{{$u->razon_social}}</td>
+                        <td>{{$u->region->region}}</td>
+                    {{--    <td>{{$u->nombre_fantasia}}</td>
                         <td>{{$u->rut}}</td>
-                        <td>{{$u->telefono}}</td>
-                        <td>{{$u->comuna['comuna']}}</td>
+                        <td>{{$u->telefono}}</td> 
+                        <td>{{$u->comuna['comuna']}}</td> --}}
                         
                         <td><div class="btn-group">
                             <a type="button" class="btn btn-success" href="{{route('proveedores.editar', $u->id)}}">Datos</a>

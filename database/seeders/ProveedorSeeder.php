@@ -17,15 +17,15 @@ class ProveedorSeeder extends Seeder
     {
         DB::table('proveedors')->insert([
             'id' => 1,
-            'rut' => '11111111-1',
+            //'rut' => '11111111-1',
             'razon_social' => 'proveedor generico',
-            'nombre_fantasia' => 'proveedor generico',
-            'giro' => 'N/A',
-            'direccion' => 'N/A',
-            'comuna_id' => 204,
-            'region_id'=> 10,
-            'telefono' => '999999999',
-            'mail' => 'cidybadilla@gmail.com',
+            //'nombre_fantasia' => 'proveedor generico',
+            //'giro' => 'N/A',
+            //'direccion' => 'N/A',
+            //'comuna_id' => 204,
+            'region_id'=> 1,
+            //'telefono' => '999999999',
+            //'mail' => 'cidybadilla@gmail.com',
             'created_at' =>  \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now()
         ]);

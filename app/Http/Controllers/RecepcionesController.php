@@ -165,7 +165,7 @@ class RecepcionesController extends Controller
         }
         session()->forget('recepcion');
         return redirect()->route('recepciones.index')->with([
-            'error' => 'Error',
+            'error' => ' ',
             'mensaje' => 'Recepcion creada correctamente con el numero ' . $recepcion->id,
             'tipo' => 'alert-success'
         ]);

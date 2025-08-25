@@ -41,13 +41,30 @@ class VentasController extends Controller
         $clientes = Cliente::all();
         $tipo_documento = tipo_documento::all();
         $articulos = Articulo::all()->where('stock', '>', 0)->where('activo', '=', 1);
+        //dd($articulos);
         $medios_pago = mediosdepago::all();
         return view('ventas.create', compact(['clientes', 'articulos', 'tipo_documento', 'medios_pago']));
     }
     public function addArticulo(Request $request)
     {
+       //dd($request->articulo);
         $venta_new = [];
         $venta_flag = false;
+        $articulosReg = Articulo::all();
+        $aux_articulo=NULL;
+    
+        foreach($articulosReg as $a){
+            if($request->articulo == $a->id){
+                $aux_articulo= $a;
+            }
+        }
+                if ($aux_articulo->stock < $request->unidades) {
+            return redirect()->route('ventas.create')->with([
+                'error' => 'Error',
+                'mensaje' => 'El stok es insuficiente',
+                'tipo' => 'alert-danger'
+            ]);
+        }
         if (session('venta')) {
             $venta = session('venta');
 

@@ -23,11 +23,11 @@
                 <thead>
                     <tr>
                         <td>ID</td>
-                        <td>Codigo interno</td>
-                        <td>Codigo de barras</td>
+                        <td>Tipo</td>
+                        <td>Medida</td>
                         <td>Descripcion</td>
                         <td>Marca</td> {{-- Nuevo campo --}}
-                        <td>Modelo</td> {{-- Nuevo campo --}}
+                        <td>Cantidad</td> {{-- Nuevo campo --}}
                         {{-- Campos eliminados: Stock, PVP --}}
                         {{-- <td>Stock</td> --}}
                         {{-- <td>PVP</td> --}}
@@ -39,13 +39,13 @@
                     @foreach ($articulos as $u)
                         <tr>
                             <td>{{ $u->id }}</td>
-                            <td>{{ $u->cod_interno }}</td>
-                            <td>{{ $u->cod_barras }}</td>
+
+                            <td>{{ $u->cod_interno}}</td>
+                            <td>{{ $u->cod_barras}}</td>
                             <td>{{ $u->descripcion }}</td>
                             <td>{{ $u->marca }}</td> {{-- Nuevo campo --}}
-                            <td>{{ $u->modelo }}</td> {{-- Nuevo campo --}}
+                            <td>{{ $u->stock }}</td> {{-- Nuevo campo --}}
                             {{-- Campos eliminados: Stock, PVP --}}
-                            {{-- <td>{{ $u->stock }}</td> --}}
                             {{-- <td>$ {{ number_format($u->venta_neto + $u->venta_imp, 0, '', '.') }}</td> --}}
                             @if ($u->activo)
                                 <td>Activo</td>
@@ -86,7 +86,7 @@
         $(document).ready(function() {
             $('#example').DataTable({
                 "columnDefs": [{
-                    "targets": [2], // Puedes ajustar esto si necesitas ocultar otra columna
+                    "targets": [0], // Puedes ajustar esto si necesitas ocultar otra columna
                     "visible": false,
                     "searchable": true
                 }],
